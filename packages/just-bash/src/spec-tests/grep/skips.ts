@@ -124,12 +124,6 @@ const SKIP_TESTS: Map<string, string> = new Map<string, string>([
   ["busybox-grep.tests:grep handles NUL in files", "-a option / NUL handling"],
   ["busybox-grep.tests:grep handles NUL on stdin", "-a option / NUL handling"],
 
-  // -f option (read patterns from file)
-  [
-    "busybox-grep.tests:grep can read regexps from stdin",
-    "-f option not supported",
-  ],
-
   // -L option (print files without matches)
   //
   // BusyBox deliberately inverts -L's exit status — its own comment above these
