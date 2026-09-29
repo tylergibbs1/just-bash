@@ -2,4 +2,4 @@
 "just-bash": patch
 ---
 
-Combine repeated `grep -e` patterns and correctly group alternatives in line-regexp modes.
+Repeated `grep -e` options overwrote the earlier patterns, so only the last one was used. All `-e` patterns now combine.
