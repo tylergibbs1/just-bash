@@ -197,7 +197,7 @@ export const grepCommand: RuntimeCommand = {
     const includePatterns: string[] = [];
     const excludePatterns: string[] = [];
     const excludeDirPatterns: string[] = [];
-    const patterns: string[] = [];
+    let patterns: string[] = [];
     /** Paths given to -f/--file, in argument order. "-" means stdin. */
     const patternFiles: string[] = [];
     const operands: string[] = [];
@@ -360,14 +360,12 @@ export const grepCommand: RuntimeCommand = {
           exitCode: 2,
         };
       }
-      patterns.push(...splitPatternOperand(positionalPattern));
-    } else {
-      patterns.splice(
-        0,
-        patterns.length,
-        ...patterns.flatMap(splitPatternOperand),
-      );
+      patterns.push(positionalPattern);
     }
+
+    // A pattern operand can hold several newline-separated patterns, so expand
+    // every collected operand once before the -f files are appended.
+    patterns = patterns.flatMap(splitPatternOperand);
 
     // Collect patterns: -e/positional first, then each -f file in order.
     // All of them OR-combine, exactly like GNU grep.
